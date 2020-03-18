@@ -18,6 +18,10 @@
 		86436ABA2421505300921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AB92421505300921A88 /* MobiusCore */; };
 		86436AD324215DC100921A88 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD224215DC100921A88 /* Task.swift */; };
 		86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD424215FFC00921A88 /* TaskDetails.swift */; };
+		86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD62421610B00921A88 /* TaskDataSource.swift */; };
+		86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */; };
+		86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */; };
+		86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE42422640600921A88 /* DispatchQueueExecutor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,10 @@
 		86436AAC24214FBA00921A88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86436AD224215DC100921A88 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		86436AD424215FFC00921A88 /* TaskDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetails.swift; sourceTree = "<group>"; };
+		86436AD62421610B00921A88 /* TaskDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataSource.swift; sourceTree = "<group>"; };
+		86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSource.swift; sourceTree = "<group>"; };
+		86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSourceTests.swift; sourceTree = "<group>"; };
+		86436AE42422640600921A88 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,7 @@
 		86436A9E24214FBA00921A88 /* TodoAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				86436ADD2422629000921A88 /* src */,
 				86436A9F24214FBA00921A88 /* TodoAppTests.swift */,
 				86436AA124214FBA00921A88 /* Info.plist */,
 			);
@@ -245,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				86436AC92421586700921A88 /* schedulers */,
+				86436AE42422640600921A88 /* DispatchQueueExecutor.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -293,6 +303,7 @@
 				86436ACF2421586800921A88 /* source */,
 				86436AD224215DC100921A88 /* Task.swift */,
 				86436AD424215FFC00921A88 /* TaskDetails.swift */,
+				86436AD62421610B00921A88 /* TaskDataSource.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -316,6 +327,47 @@
 		86436AD12421586800921A88 /* remote */ = {
 			isa = PBXGroup;
 			children = (
+				86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */,
+			);
+			path = remote;
+			sourceTree = "<group>";
+		};
+		86436ADD2422629000921A88 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				86436ADE2422629C00921A88 /* data */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		86436ADE2422629C00921A88 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				86436ADF242262A200921A88 /* source */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		86436ADF242262A200921A88 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				86436AE1242262B200921A88 /* remote */,
+				86436AE0242262AE00921A88 /* local */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		86436AE0242262AE00921A88 /* local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = local;
+			sourceTree = "<group>";
+		};
+		86436AE1242262B200921A88 /* remote */ = {
+			isa = PBXGroup;
+			children = (
+				86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */,
 			);
 			path = remote;
 			sourceTree = "<group>";
@@ -460,8 +512,11 @@
 				86436AD324215DC100921A88 /* Task.swift in Sources */,
 				86436A8D24214FB800921A88 /* ViewController.swift in Sources */,
 				86436A8924214FB800921A88 /* AppDelegate.swift in Sources */,
+				86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */,
 				86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */,
 				86436A8B24214FB800921A88 /* SceneDelegate.swift in Sources */,
+				86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */,
+				86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86436AA024214FBA00921A88 /* TodoAppTests.swift in Sources */,
+				86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

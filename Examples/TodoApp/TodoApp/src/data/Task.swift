@@ -1,8 +1,8 @@
 import Foundation
 
-struct Task {
-    private let id: String
-    private var details: TaskDetails
+struct Task: Equatable {
+    let id: String
+    var details: TaskDetails
 
     var isCompleted: Bool {
         willSet {
@@ -11,4 +11,17 @@ struct Task {
     }
 
     var isActive: Bool
+
+    init(id: String = "", details: TaskDetails) {
+        self.id = id
+        self.details = details
+        isCompleted = false
+        isActive = false
+    }
+
+    // MARK: - Equatable
+    
+    static func == (lhs: Task, rhs: Task) -> Bool {
+        return lhs.id == rhs.id && lhs.details == rhs.details
+    }
 }
