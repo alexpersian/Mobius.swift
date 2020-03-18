@@ -11,14 +11,16 @@ import MobiusExtras
 
 final class TasksInjector {
 
-    func createController(effectHandler: ConsumerTransformer<TasksListEffect, TasksList>,
-                          eventSource: EventSource<TasksListEffect>,
-                          defaultModel: TasksListModel) -> MobiusController<TasksListModel, TasksListEvent> {
-        return MobiusController(builder: <#T##Mobius.Builder<_, _, _>#>, defaultModel: defaultModel)
-    }
+    // TODO: Ignore for now. Return when working on Mobius integration.
 
-    private func createLoop(eventSource: EventSource<TasksListEvent>,
-                            effectHandler: ConsumerTransformer<TasksListEffect, TasksListEvent>) -> Mobius.Builder<TasksListModel, TasksListEvent, TasksListEffect> {
-        
-    }
+//    func createController(effectHandler: ConsumerTransformer<TasksListEffect, TasksList>,
+//                          eventSource: EventSource<TasksListEffect>,
+//                          defaultModel: TasksListModel) -> MobiusController<TasksListModel, TasksListEvent> {
+//        return MobiusController(builder: , defaultModel: defaultModel)
+//    }
+//
+//    private func createLoop(eventSource: EventSource<TasksListEvent>,
+//                            effectHandler: ConsumerTransformer<TasksListEffect, TasksListEvent>) -> Mobius.Builder<TasksListModel, TasksListEvent, TasksListEffect> {
+//
+//    }
 }

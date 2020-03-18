@@ -21,9 +21,9 @@
 		86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */; };
 		86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */; };
 		86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE42422640600921A88 /* DispatchQueueExecutor.swift */; };
-		F0BB42D72421B9D400C5B40E /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D62421B9D400C5B40E /* TasksView.swift */; };
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
+		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,9 +63,9 @@
 		86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSource.swift; sourceTree = "<group>"; };
 		86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSourceTests.swift; sourceTree = "<group>"; };
 		86436AE42422640600921A88 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
-		F0BB42D62421B9D400C5B40E /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
+		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +198,7 @@
 				86436AC22421586700921A88 /* domain */,
 				86436AC32421586700921A88 /* effecthandlers */,
 				F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */,
-				F0BB42D62421B9D400C5B40E /* TasksView.swift */,
+				F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */,
 				F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */,
 			);
 			path = tasks;
@@ -520,10 +520,10 @@
 				86436A8924214FB800921A88 /* AppDelegate.swift in Sources */,
 				86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */,
 				F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */,
-				F0BB42D72421B9D400C5B40E /* TasksView.swift in Sources */,
 				86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */,
 				86436A8B24214FB800921A88 /* SceneDelegate.swift in Sources */,
 				86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */,
+				F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */,
 				86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
