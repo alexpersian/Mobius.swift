@@ -12,21 +12,46 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @IBOutlet weak var tasksListTableView: UITableView!
 
+    private let remoteDataSource = TaskRemoteDataSource()
+
+    private var tasks: [Task] = [] {
+        didSet { tasksListTableView.reloadData() }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tasksListTableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "task-cell")
         tasksListTableView.dataSource = self
+        updateTaskList()
+    }
+
+    private func updateTaskList() {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.remoteDataSource.fetchTasks { tasks in
+                self.tasks = tasks
+            }
+        }
     }
 
     @IBAction func addTask(sender: UIBarButtonItem) {
         print("adding task")
+        let taskId = UUID().uuidString
+        let newDetails = TaskDetails(title: "New Task", description: "This is a new task to add.", isCompleted: false)
+        let newTask = Task(id: taskId, details: newDetails)
+        remoteDataSource.save(task: newTask)
+        updateTaskList()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "task-cell")!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "task-cell") as? TasksListTableViewCell else {
+            fatalError("Failed to dequeue task cell")
+        }
+        cell.setupCell(with: tasks[indexPath.row])
+        return cell
     }
 }

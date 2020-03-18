@@ -16,16 +16,15 @@ class TasksListTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-        setupCell()
     }
 
     required init?(coder: NSCoder) {
         fatalError("Initializer not implemented.")
     }
 
-    private func setupCell() {
+    func setupCell(with task: Task) {
         self.selectionStyle = .none
-        self.textLabel?.text = "Hello world!"
-        self.detailTextLabel?.text = "This is a new task for displaying."
+        self.textLabel?.text = task.details.title
+        self.detailTextLabel?.text = task.details.description
     }
 }

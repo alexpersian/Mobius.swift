@@ -57,7 +57,7 @@ class TaskRemoteDataSource: TasksDataSource {
     // MARK: - Private
 
     private func makeDelayedDispatchTime() -> DispatchTime {
-        // Simulate network delay of 3 seconds
-        return DispatchTime.now() + 3
+        // Simulate network delay of 1 seconds
+        return DispatchTime.now() + 1
     }
 }
