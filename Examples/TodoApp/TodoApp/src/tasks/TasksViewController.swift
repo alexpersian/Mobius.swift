@@ -26,7 +26,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     private func updateTaskList() {
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.remoteDataSource.fetchTasks { tasks in
                 self.tasks = tasks
@@ -35,13 +34,36 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     @IBAction func addTask(sender: UIBarButtonItem) {
-        print("adding task")
-        let taskId = UUID().uuidString
-        let newDetails = TaskDetails(title: "New Task", description: "This is a new task to add.", isCompleted: false)
-        let newTask = Task(id: taskId, details: newDetails)
-        remoteDataSource.save(task: newTask)
-        updateTaskList()
+        let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Title"
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "Description"
+        }
+
+        let titleField = alertController.textFields?[0]
+        let descField = alertController.textFields?[1]
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+            let newDetails = TaskDetails(title: titleField?.text ?? "", description: descField?.text ?? "", isCompleted: false)
+            let newTask = Task(id: UUID().uuidString, details: newDetails)
+            self.remoteDataSource.save(task: newTask)
+            self.updateTaskList()
+        }
+        doneAction.isEnabled = false
+
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
+            doneAction.isEnabled = titleField?.text?.isEmpty == false
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(doneAction)
+        present(alertController, animated: true, completion: nil)
     }
+
+    // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
