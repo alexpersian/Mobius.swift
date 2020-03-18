@@ -12,28 +12,38 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @IBOutlet weak var tasksListTableView: UITableView!
 
-    private let remoteDataSource = TaskRemoteDataSource()
+    private let dataSource = TaskRemoteDataSource()
+    private var addTaskModal: UIAlertController?
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     private var tasks: [Task] = [] {
         didSet { tasksListTableView.reloadData() }
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
+        setupAddTaskModal()
+        setupTableView()
+    }
+
+    // MARK: - Setup
+
+    private func setupActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+    }
+
+    private func setupTableView() {
         tasksListTableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "task-cell")
         tasksListTableView.dataSource = self
         updateTaskList()
     }
 
-    private func updateTaskList() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.remoteDataSource.fetchTasks { tasks in
-                self.tasks = tasks
-            }
-        }
-    }
-
-    @IBAction func addTask(sender: UIBarButtonItem) {
+    private func setupAddTaskModal() {
         let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
             textField.placeholder = "Title"
@@ -49,7 +59,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
             let newDetails = TaskDetails(title: titleField?.text ?? "", description: descField?.text ?? "", isCompleted: false)
             let newTask = Task(id: UUID().uuidString, details: newDetails)
-            self.remoteDataSource.save(task: newTask)
+            self.dataSource.save(task: newTask)
             self.updateTaskList()
         }
         doneAction.isEnabled = false
@@ -60,7 +70,28 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         alertController.addAction(cancelAction)
         alertController.addAction(doneAction)
-        present(alertController, animated: true, completion: nil)
+
+        addTaskModal = alertController
+    }
+
+    // MARK: - Updates
+
+    private func updateTaskList() {
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.dataSource.fetchTasks { tasks in
+                self.activityIndicator.stopAnimating()
+                self.tasks = tasks
+            }
+        }
+    }
+
+    @IBAction func addTask(sender: UIBarButtonItem) {
+        guard let modal = addTaskModal else {
+            print("Error: Missing add task modal!")
+            return
+        }
+        present(modal, animated: true, completion: nil)
     }
 
     // MARK: - UITableViewDataSource
