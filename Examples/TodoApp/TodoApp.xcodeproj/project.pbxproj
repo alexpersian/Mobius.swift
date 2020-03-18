@@ -13,7 +13,6 @@
 		86436A9024214FB800921A88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86436A8E24214FB800921A88 /* Main.storyboard */; };
 		86436A9224214FB900921A88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86436A9124214FB900921A88 /* Assets.xcassets */; };
 		86436A9524214FB900921A88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86436A9324214FB900921A88 /* LaunchScreen.storyboard */; };
-		86436AA024214FBA00921A88 /* TodoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436A9F24214FBA00921A88 /* TodoAppTests.swift */; };
 		86436AAB24214FBA00921A88 /* TodoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AAA24214FBA00921A88 /* TodoAppUITests.swift */; };
 		86436ABA2421505300921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AB92421505300921A88 /* MobiusCore */; };
 		86436AD324215DC100921A88 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD224215DC100921A88 /* Task.swift */; };
@@ -51,7 +50,6 @@
 		86436A9424214FB900921A88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86436A9624214FB900921A88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86436A9B24214FBA00921A88 /* TodoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		86436A9F24214FBA00921A88 /* TodoAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAppTests.swift; sourceTree = "<group>"; };
 		86436AA124214FBA00921A88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86436AA624214FBA00921A88 /* TodoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86436AAA24214FBA00921A88 /* TodoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAppUITests.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				86436ADD2422629000921A88 /* src */,
-				86436A9F24214FBA00921A88 /* TodoAppTests.swift */,
 				86436AA124214FBA00921A88 /* Info.plist */,
 			);
 			path = TodoAppTests;
@@ -311,17 +308,9 @@
 		86436ACF2421586800921A88 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				86436AD02421586800921A88 /* local */,
 				86436AD12421586800921A88 /* remote */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		86436AD02421586800921A88 /* local */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = local;
 			sourceTree = "<group>";
 		};
 		86436AD12421586800921A88 /* remote */ = {
@@ -352,16 +341,8 @@
 			isa = PBXGroup;
 			children = (
 				86436AE1242262B200921A88 /* remote */,
-				86436AE0242262AE00921A88 /* local */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		86436AE0242262AE00921A88 /* local */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = local;
 			sourceTree = "<group>";
 		};
 		86436AE1242262B200921A88 /* remote */ = {
@@ -524,7 +505,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86436AA024214FBA00921A88 /* TodoAppTests.swift in Sources */,
 				86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
