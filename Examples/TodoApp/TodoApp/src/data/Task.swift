@@ -1,6 +1,6 @@
 import Foundation
 
-struct Task: Equatable {
+struct Task: Equatable, Codable {
     let id: String
     var details: TaskDetails
 
