@@ -49,10 +49,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
-            let newDetails = TaskDetails(title: titleField?.text ?? "", description: descField?.text ?? "", isCompleted: false)
-            let newTask = Task(id: UUID().uuidString, details: newDetails)
-            self.dataSource.save(task: newTask)
-            self.updateTaskList()
+            self.createNewTask(title: titleField?.text ?? "", description: descField?.text ?? "")
         }
         doneAction.isEnabled = false
 
@@ -67,6 +64,13 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     // MARK: - Updates
+
+    private func createNewTask(title: String, description: String) {
+        let newDetails = TaskDetails(title: title, description: description, isCompleted: false)
+        let newTask = Task(details: newDetails)
+        self.dataSource.save(task: newTask)
+        self.updateTaskList()
+    }
 
     private func updateTaskList() {
         activityIndicator.startAnimating()
