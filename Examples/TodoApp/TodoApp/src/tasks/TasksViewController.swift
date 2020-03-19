@@ -1,11 +1,3 @@
-//
-//  TasksViewController.swift
-//  TodoApp
-//
-//  Created by Alexander Persian on 3/17/20.
-//  Copyright © 2020 Spotify. All rights reserved.
-//
-
 import UIKit
 
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -78,7 +70,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     private func updateTaskList() {
         activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.async {
             self.dataSource.fetchTasks { tasks in
                 self.activityIndicator.stopAnimating()
                 self.tasks = tasks

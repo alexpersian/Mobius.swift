@@ -1,11 +1,3 @@
-//
-//  TasksInjector.swift
-//  TodoApp
-//
-//  Created by Alexander Persian on 3/17/20.
-//  Copyright © 2020 Spotify. All rights reserved.
-//
-
 import MobiusCore
 import MobiusExtras
 

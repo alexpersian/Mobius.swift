@@ -1,11 +1,3 @@
-//
-//  TasksListTableViewCell.swift
-//  TodoApp
-//
-//  Created by Alexander Persian on 3/18/20.
-//  Copyright © 2020 Spotify. All rights reserved.
-//
-
 import UIKit
 
 class TasksListTableViewCell: UITableViewCell {
