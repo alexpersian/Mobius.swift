@@ -4,24 +4,22 @@ import MobiusExtras
 final class MobiusControllerFactory {
 
     private let effectHandler: TasksListEffectHandler
-    private let initialModel: TasksListModel
+    private let initialModel: TasksList.Model
     private let loggerTag = "tasks_list"
 
     // MARK: - Init
 
     init(effectHandler: TasksListEffectHandler = TasksListEffectHandler(),
-         initialModel: TasksListModel) {
+         initialModel: TasksList.Model) {
         self.effectHandler = effectHandler
         self.initialModel = initialModel
     }
 
-    func createController() -> MobiusController<TasksListModel, TasksListEvent, TasksListEffect> {
-        let builder: Mobius.Builder<TasksListModel, TasksListEvent, TasksListEffect> = Mobius
-            .loop(update: { (m, e) -> Next<TasksListModel, TasksListEffect> in
-                // TODO: implement update function
-                return .noChange
-            }, effectHandler: effectHandler)
-            .withLogger(SimpleLogger<TasksListModel, TasksListEvent, TasksListEffect>(tag: loggerTag))
+    // TODO: Reevaluate the signature here. Right now we are required to pass in the Update function.
+    func createController(with update: @escaping (TasksList.Model, TasksList.Event) -> Next<TasksList.Model, TasksList.Effect>) -> MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect> {
+        let builder: Mobius.Builder<TasksList.Model, TasksList.Event, TasksList.Effect> = Mobius
+            .loop(update: update, effectHandler: effectHandler)
+            .withLogger(SimpleLogger<TasksList.Model, TasksList.Event, TasksList.Effect>(tag: loggerTag))
         return builder.makeController(from: initialModel)
     }
 }

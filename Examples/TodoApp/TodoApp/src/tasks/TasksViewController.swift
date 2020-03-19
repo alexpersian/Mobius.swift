@@ -6,9 +6,11 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var tasksListTableView: UITableView!
 
     private let dataSource = TaskRemoteDataSource()
-    private var addTaskModal: UIAlertController?
+    private var addTaskModal: UIAlertController!
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-    private var mobiusController: MobiusController<TasksListModel, TasksListEvent, TasksListEffect>! //TODO: make it a let
+
+    private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>! //TODO: make it a let
+    private var eventConsumer: Consumer<TasksList.Event>!
 
     private var tasks: [Task] = [] {
         didSet { tasksListTableView.reloadData() }
@@ -21,9 +23,52 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         setupActivityIndicator()
         setupAddTaskModal()
         setupTableView()
+        setupMobiusController(with: tasks)
+
+        updateTaskList() // TODO: This should be an event in Mobius (.viewLoaded / .initialLoad)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startLoop()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopLoop()
+    }
+
+    private func startLoop() {
+        mobiusController.connectView(AnyConnectable<TasksList.Model, TasksList.Event>(self.connectViews))
+        mobiusController.start()
+    }
+
+    private func stopLoop() {
+        mobiusController?.stop()
+        mobiusController?.disconnectView()
     }
 
     // MARK: - Setup
+
+    private func setupMobiusController(with tasks: [Task]) {
+        mobiusController = MobiusControllerFactory(initialModel: TasksList.Model(tasks: tasks, loading: false))
+            .createController(with: update)
+    }
+
+    private func connectViews(consumer: @escaping Consumer<TasksList.Event>) -> Connection<TasksList.Model> {
+        self.eventConsumer = consumer
+
+        let accept: (TasksList.Model) -> Void = { model in
+            print("accepting")
+            // TODO: Move to view delegate pattern
+            self.tasks = model.tasks // TODO: Remove this
+        }
+        let dispose = {
+            print("disposing")
+        }
+
+        return Connection(acceptClosure: accept, disposeClosure: dispose)
+    }
 
     private func setupActivityIndicator() {
         activityIndicator.hidesWhenStopped = true
@@ -34,7 +79,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     private func setupTableView() {
         tasksListTableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "task-cell")
         tasksListTableView.dataSource = self
-        updateTaskList()
     }
 
     private func setupAddTaskModal() {
@@ -80,22 +124,23 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.dataSource.fetchTasks { [weak self] tasks in
                 guard let self = self else { return }
                 self.activityIndicator.stopAnimating()
-                self.tasks = tasks
-                self.setupMobiusController(with: tasks)
+                self.eventConsumer(.tasksLoaded(tasks: tasks))
             }
         }
     }
 
-    private func setupMobiusController(with tasks: [Task]) {
-        mobiusController = MobiusControllerFactory(initialModel: TasksListModel(tasks: tasks, loading: false)).createController()
+    private func update(model: TasksList.Model, event: TasksList.Event) -> Next<TasksList.Model, TasksList.Effect> {
+        switch event {
+        case .newTaskClicked:
+            return .dispatchEffects([.startTaskCreationFlow])
+        case .tasksLoaded(let tasks):
+            let newModel = TasksList.Model(tasks: tasks + model.tasks, loading: false)
+            return .next(newModel)
+        }
     }
 
-    @IBAction func addTask(sender: UIBarButtonItem) {
-        guard let modal = addTaskModal else {
-            print("Error: Missing add task modal!")
-            return
-        }
-        present(modal, animated: true, completion: nil)
+    @IBAction func addTask(sender: UIBarButtonItem) { // Event trigger
+        self.eventConsumer(.newTaskClicked)
     }
 
     // MARK: - UITableViewDataSource

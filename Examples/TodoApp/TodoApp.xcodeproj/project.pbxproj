@@ -29,9 +29,7 @@
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
 		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
-		F0BB42E42423BA4200C5B40E /* TasksListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E32423BA4200C5B40E /* TasksListEvent.swift */; };
-		F0BB42E62423BAC700C5B40E /* TasksListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E52423BAC700C5B40E /* TasksListModel.swift */; };
-		F0BB42E82423BBD100C5B40E /* TasksListEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E72423BBD100C5B40E /* TasksListEffect.swift */; };
+		F0BB42EA2423E59B00C5B40E /* TasksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E92423E59B00C5B40E /* TasksList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,9 +74,7 @@
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
 		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
-		F0BB42E32423BA4200C5B40E /* TasksListEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEvent.swift; sourceTree = "<group>"; };
-		F0BB42E52423BAC700C5B40E /* TasksListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListModel.swift; sourceTree = "<group>"; };
-		F0BB42E72423BBD100C5B40E /* TasksListEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEffect.swift; sourceTree = "<group>"; };
+		F0BB42E92423E59B00C5B40E /* TasksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,9 +191,7 @@
 		86436AC22421586700921A88 /* domain */ = {
 			isa = PBXGroup;
 			children = (
-				F0BB42E52423BAC700C5B40E /* TasksListModel.swift */,
-				F0BB42E32423BA4200C5B40E /* TasksListEvent.swift */,
-				F0BB42E72423BBD100C5B40E /* TasksListEffect.swift */,
+				F0BB42E92423E59B00C5B40E /* TasksList.swift */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -390,7 +384,7 @@
 			);
 			mainGroup = 86436A7C24214FB800921A88;
 			packageReferences = (
-				86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "Mobius" */,
+				86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */,
 			);
 			productRefGroup = 86436A8624214FB800921A88 /* Products */;
 			projectDirPath = "";
@@ -438,7 +432,6 @@
 				86436AD324215DC100921A88 /* Task.swift in Sources */,
 				F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */,
 				86436A8924214FB800921A88 /* AppDelegate.swift in Sources */,
-				F0BB42E42423BA4200C5B40E /* TasksListEvent.swift in Sources */,
 				86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */,
 				F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */,
 				86436AF92423C06400921A88 /* TasksListEffectHandler.swift in Sources */,
@@ -446,8 +439,7 @@
 				86436A8B24214FB800921A88 /* SceneDelegate.swift in Sources */,
 				86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */,
 				86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */,
-				F0BB42E62423BAC700C5B40E /* TasksListModel.swift in Sources */,
-				F0BB42E82423BBD100C5B40E /* TasksListEffect.swift in Sources */,
+				F0BB42EA2423E59B00C5B40E /* TasksList.swift in Sources */,
 				F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */,
 				86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */,
 			);
@@ -775,7 +767,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "Mobius" */ = {
+		86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "file://../..";
 			requirement = {
@@ -796,12 +788,12 @@
 		};
 		86436B002423C4E200921A88 /* MobiusCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "Mobius" */;
+			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */;
 			productName = MobiusCore;
 		};
 		86436B022423C4E200921A88 /* MobiusExtras */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "Mobius" */;
+			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */;
 			productName = MobiusExtras;
 		};
 /* End XCSwiftPackageProductDependency section */
