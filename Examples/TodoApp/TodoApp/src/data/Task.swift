@@ -12,7 +12,7 @@ struct Task: Equatable, Codable {
 
     var isActive: Bool
 
-    init(id: String = "", details: TaskDetails) {
+    init(id: String = UUID().uuidString, details: TaskDetails) {
         self.id = id
         self.details = details
         isCompleted = false
