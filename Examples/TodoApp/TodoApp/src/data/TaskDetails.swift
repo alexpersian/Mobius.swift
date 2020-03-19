@@ -1,6 +1,6 @@
 import Foundation
 
-struct TaskDetails: Equatable {
+struct TaskDetails: Equatable, Codable {
     let title: String
     let description: String
     var isCompleted: Bool

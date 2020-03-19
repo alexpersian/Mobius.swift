@@ -1,6 +1,6 @@
 import Foundation
 
-struct Task: Equatable {
+struct Task: Equatable, Codable {
     let id: String
     var details: TaskDetails
 
@@ -12,7 +12,7 @@ struct Task: Equatable {
 
     var isActive: Bool
 
-    init(id: String = "", details: TaskDetails) {
+    init(id: String = UUID().uuidString, details: TaskDetails) {
         self.id = id
         self.details = details
         isCompleted = false
