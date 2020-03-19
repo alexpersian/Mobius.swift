@@ -20,11 +20,11 @@
 		86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */; };
 		86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */; };
 		86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE42422640600921A88 /* DispatchQueueExecutor.swift */; };
+		86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */; };
+		86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */; };
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
 		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
-		86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */; };
-		86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,11 +63,11 @@
 		86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSource.swift; sourceTree = "<group>"; };
 		86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSourceTests.swift; sourceTree = "<group>"; };
 		86436AE42422640600921A88 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
+		86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
+		86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSourceTests.swift; sourceTree = "<group>"; };
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
 		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
-		86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
-		86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSourceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,45 +151,11 @@
 			children = (
 				86436A8824214FB800921A88 /* AppDelegate.swift */,
 				86436A8A24214FB800921A88 /* SceneDelegate.swift */,
-				86436ABC2421586700921A88 /* statistics */,
 				86436AC02421586700921A88 /* tasks */,
-				86436AC42421586700921A88 /* taskdetail */,
 				86436AC82421586700921A88 /* util */,
-				86436ACA2421586700921A88 /* addedittask */,
 				86436ACE2421586700921A88 /* data */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		86436ABC2421586700921A88 /* statistics */ = {
-			isa = PBXGroup;
-			children = (
-				86436ABD2421586700921A88 /* view */,
-				86436ABE2421586700921A88 /* domain */,
-				86436ABF2421586700921A88 /* effecthandlers */,
-			);
-			path = statistics;
-			sourceTree = "<group>";
-		};
-		86436ABD2421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436ABE2421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436ABF2421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = effecthandlers;
 			sourceTree = "<group>";
 		};
 		86436AC02421586700921A88 /* tasks */ = {
@@ -226,82 +192,12 @@
 			path = effecthandlers;
 			sourceTree = "<group>";
 		};
-		86436AC42421586700921A88 /* taskdetail */ = {
-			isa = PBXGroup;
-			children = (
-				86436AC52421586700921A88 /* view */,
-				86436AC62421586700921A88 /* domain */,
-				86436AC72421586700921A88 /* effecthandlers */,
-			);
-			path = taskdetail;
-			sourceTree = "<group>";
-		};
-		86436AC52421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436AC62421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436AC72421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = effecthandlers;
-			sourceTree = "<group>";
-		};
 		86436AC82421586700921A88 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				86436AC92421586700921A88 /* schedulers */,
 				86436AE42422640600921A88 /* DispatchQueueExecutor.swift */,
 			);
 			path = util;
-			sourceTree = "<group>";
-		};
-		86436AC92421586700921A88 /* schedulers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = schedulers;
-			sourceTree = "<group>";
-		};
-		86436ACA2421586700921A88 /* addedittask */ = {
-			isa = PBXGroup;
-			children = (
-				86436ACB2421586700921A88 /* view */,
-				86436ACC2421586700921A88 /* domain */,
-				86436ACD2421586700921A88 /* effecthandlers */,
-			);
-			path = addedittask;
-			sourceTree = "<group>";
-		};
-		86436ACB2421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436ACC2421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436ACD2421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = effecthandlers;
 			sourceTree = "<group>";
 		};
 		86436ACE2421586700921A88 /* data */ = {
