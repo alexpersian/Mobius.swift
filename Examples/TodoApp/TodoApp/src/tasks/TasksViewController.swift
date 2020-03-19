@@ -1,4 +1,5 @@
 import UIKit
+import MobiusCore
 
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -7,6 +8,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     private let dataSource = TaskRemoteDataSource()
     private var addTaskModal: UIAlertController?
     private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private var mobiusController: MobiusController<TasksListModel, TasksListEvent, TasksListEffect>! //TODO: make it a let
 
     private var tasks: [Task] = [] {
         didSet { tasksListTableView.reloadData() }
@@ -75,11 +77,17 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     private func updateTaskList() {
         activityIndicator.startAnimating()
         DispatchQueue.main.async {
-            self.dataSource.fetchTasks { tasks in
+            self.dataSource.fetchTasks { [weak self] tasks in
+                guard let self = self else { return }
                 self.activityIndicator.stopAnimating()
                 self.tasks = tasks
+                self.setupMobiusController(with: tasks)
             }
         }
+    }
+
+    private func setupMobiusController(with tasks: [Task]) {
+        mobiusController = MobiusControllerFactory(initialModel: TasksListModel(tasks: tasks, loading: false)).createController()
     }
 
     @IBAction func addTask(sender: UIBarButtonItem) {
