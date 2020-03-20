@@ -1,11 +1,13 @@
 import Foundation
 import MobiusCore
-import UIKit
 
 final class TasksListEffectHandler: Connectable {
+    weak var viewModel: TasksListViewModeling?
+    private let dataSource: TasksDataSource
 
-    weak var view: (UIViewController & TaskViewing)?
-
+    init(dataSource: TasksDataSource = TaskRemoteDataSource()) {
+         self.dataSource = dataSource
+     }
     // MARK: - Connectable
 
     func connect(_ eventConsumer: @escaping Consumer<TasksList.Event>) -> Connection<TasksList.Effect> {
@@ -21,12 +23,18 @@ final class TasksListEffectHandler: Connectable {
 
     private func routeEffect(_ effect: TasksList.Effect) {
         switch effect {
-        case .loadTasks:
-            //TODO: show spinner
-            print("load task effect")
-        case .saveTask(let task): print("save task \(task) effect")
+        case .loadTasks: handleLoadTasks()
+        case .saveTask(let task):
+            dataSource.save(task: task)
         case .startTaskCreationFlow:
-            view?.showAddTaskModal()
+            viewModel?.showAddTaskModal()
+        }
+    }
+
+    private func handleLoadTasks() {
+        view?.displaySpinner(true)
+        dataSource.fetchTasks { tasks in
+
         }
     }
 }

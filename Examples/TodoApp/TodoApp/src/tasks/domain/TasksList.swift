@@ -7,8 +7,10 @@ struct TasksList {
     }
 
     enum Event {
-        case newTaskClicked
+        case refreshRequested
         case tasksLoaded(tasks: [Task])
+        case newTaskClicked
+        case taskCreated(title: String, description: String)
     }
 
     enum Effect {

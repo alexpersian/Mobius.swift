@@ -1,21 +1,25 @@
 import UIKit
-import MobiusCore
+
+protocol TaskViewing: UIViewController {
+    func showAddTaskModal()
+    func showSpinner(_ show: Bool)
+    func show(tasksViewData: [TaskViewData])
+}
 
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var tasksListTableView: UITableView!
+    @IBOutlet private weak var tasksListTableView: UITableView!
+    private let viewModel: TasksListViewEventHandling
 
-    private let dataSource = TaskRemoteDataSource()
     private lazy var addTaskModal: UIAlertController = {
         createNewTaskAlertController()
     }()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
 
-    private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>! //TODO: make it a let
-    private var eventConsumer: Consumer<TasksList.Event>!
+    private var tasksViewData: [TaskViewData] = []
 
-    private var tasks: [Task] = [] {
-        didSet { tasksListTableView.reloadData() }
+    required init?(coder: NSCoder) {
+        viewModel = TasksListViewModel()
     }
 
     // MARK: - Lifecycle
@@ -24,55 +28,21 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         setupActivityIndicator()
         setupTableView()
-        setupMobiusController(with: tasks)
-
+        viewModel.viewDidLoad()
         updateTaskList() // TODO: This should be an event in Mobius (.viewLoaded / .initialLoad)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        startLoop()
+        viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        stopLoop()
-    }
-
-    private func startLoop() {
-        mobiusController.connectView(AnyConnectable<TasksList.Model, TasksList.Event>(self.connectViews))
-        mobiusController.start()
-    }
-
-    private func stopLoop() {
-        mobiusController?.stop()
-        mobiusController?.disconnectView()
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Setup
-
-    private func setupMobiusController(with tasks: [Task]) {
-        let effectHandler = TasksListEffectHandler()
-        effectHandler.view = self
-        mobiusController = MobiusControllerFactory(effectHandler: effectHandler,
-                                                   initialModel: TasksList.Model(tasks: tasks, loading: false))
-            .createController(with: update)
-    }
-
-    private func connectViews(consumer: @escaping Consumer<TasksList.Event>) -> Connection<TasksList.Model> {
-        self.eventConsumer = consumer
-
-        let accept: (TasksList.Model) -> Void = { model in
-            print("accepting")
-            // TODO: Move to view delegate pattern
-            self.tasks = model.tasks // TODO: Remove this
-        }
-        let dispose = {
-            print("disposing")
-        }
-
-        return Connection(acceptClosure: accept, disposeClosure: dispose)
-    }
 
     private func setupActivityIndicator() {
         activityIndicator.hidesWhenStopped = true
@@ -87,29 +57,18 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     // MARK: - Updates
 
-    private func updateTaskList() {
-        activityIndicator.startAnimating()
-        DispatchQueue.main.async {
-            self.dataSource.fetchTasks { [weak self] tasks in
-                guard let self = self else { return }
-                self.activityIndicator.stopAnimating()
-                self.eventConsumer(.tasksLoaded(tasks: tasks))
-            }
-        }
-    }
-
-    private func update(model: TasksList.Model, event: TasksList.Event) -> Next<TasksList.Model, TasksList.Effect> {
-        switch event {
-        case .newTaskClicked:
-            return .dispatchEffects([.startTaskCreationFlow])
-        case .tasksLoaded(let tasks):
-            let newModel = TasksList.Model(tasks: tasks, loading: false)
-            return .next(newModel)
-        }
-    }
+//    private func updateTaskList() {
+//        activityIndicator.startAnimating()
+//        DispatchQueue.main.async {
+//            self.dataSource.fetchTasks { [weak self] tasks in
+//                guard let self = self else { return }
+//                self.activityIndicator.stopAnimating()
+//            }
+//        }
+//    }
 
     @IBAction func addTask(sender: UIBarButtonItem) {
-        eventConsumer(.newTaskClicked)
+        viewModel.didPressAddTaskButton()
     }
 
     // MARK: - UITableViewDataSource
@@ -127,10 +86,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 }
 
-protocol TaskViewing {
-    func showAddTaskModal()
-}
-
 extension TasksViewController: TaskViewing {
 
     // MARK: - TaskViewing
@@ -139,6 +94,11 @@ extension TasksViewController: TaskViewing {
         DispatchQueue.main.async {
             self.present(self.addTaskModal, animated: true, completion: nil)
         }
+    }
+
+    func show(tasksViewData: [TaskViewData]) {
+        self.tasksViewData = tasksViewData
+        tasksListTableView.reloadData()
     }
 
     // MARK: - Private
@@ -152,17 +112,18 @@ extension TasksViewController: TaskViewing {
              textField.placeholder = "Description"
          }
 
-         let titleField = alertController.textFields?[0]
-         let descField = alertController.textFields?[1]
+        let titleField = alertController.textFields?[0]
+        let title = titleField?.text ?? ""
+        let description = alertController.textFields?[1].text ?? ""
 
          let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
          let doneAction = UIAlertAction(title: "Done", style: .default) { [weak self] _ in
-             self?.createNewTask(title: titleField?.text ?? "", description: descField?.text ?? "")
+            self?.eventConsumer(.taskCreated(title: title, description: description))
          }
          doneAction.isEnabled = false
 
          NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
-             doneAction.isEnabled = titleField?.text?.isEmpty == false
+             doneAction.isEnabled = title.isEmpty == false
          }
 
          alertController.addAction(cancelAction)
@@ -172,8 +133,6 @@ extension TasksViewController: TaskViewing {
      }
 
      private func createNewTask(title: String, description: String) {
-         let newDetails = TaskDetails(title: title, description: description, isCompleted: false)
-         let newTask = Task(details: newDetails)
          self.dataSource.save(task: newTask)
          self.updateTaskList()
      }

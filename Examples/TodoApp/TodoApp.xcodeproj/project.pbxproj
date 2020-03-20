@@ -26,6 +26,8 @@
 		86436AFE2423C47F00921A88 /* MobiusExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AFD2423C47F00921A88 /* MobiusExtras */; };
 		86436B012423C4E200921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436B002423C4E200921A88 /* MobiusCore */; };
 		86436B032423C4E200921A88 /* MobiusExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86436B022423C4E200921A88 /* MobiusExtras */; };
+		86436B052425113400921A88 /* TasksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436B042425113400921A88 /* TasksListViewModel.swift */; };
+		86436B072425405B00921A88 /* TaskViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436B062425405B00921A88 /* TaskViewData.swift */; };
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
 		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
@@ -71,6 +73,8 @@
 		86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
 		86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSourceTests.swift; sourceTree = "<group>"; };
 		86436AF82423C06400921A88 /* TasksListEffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEffectHandler.swift; sourceTree = "<group>"; };
+		86436B042425113400921A88 /* TasksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListViewModel.swift; sourceTree = "<group>"; };
+		86436B062425405B00921A88 /* TaskViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewData.swift; sourceTree = "<group>"; };
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
 		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
@@ -174,9 +178,8 @@
 				86436AC12421586700921A88 /* view */,
 				86436AC22421586700921A88 /* domain */,
 				86436AC32421586700921A88 /* effecthandlers */,
-				F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */,
-				F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */,
 				F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */,
+				86436B042425113400921A88 /* TasksListViewModel.swift */,
 			);
 			path = tasks;
 			sourceTree = "<group>";
@@ -184,6 +187,9 @@
 		86436AC12421586700921A88 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */,
+				F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */,
+				86436B062425405B00921A88 /* TaskViewData.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -434,10 +440,12 @@
 				86436A8924214FB800921A88 /* AppDelegate.swift in Sources */,
 				86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */,
 				F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */,
+				86436B052425113400921A88 /* TasksListViewModel.swift in Sources */,
 				86436AF92423C06400921A88 /* TasksListEffectHandler.swift in Sources */,
 				86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */,
 				86436A8B24214FB800921A88 /* SceneDelegate.swift in Sources */,
 				86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */,
+				86436B072425405B00921A88 /* TaskViewData.swift in Sources */,
 				86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */,
 				F0BB42EA2423E59B00C5B40E /* TasksList.swift in Sources */,
 				F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */,
