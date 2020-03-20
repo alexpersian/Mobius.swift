@@ -1,31 +1,39 @@
 import Foundation
 import MobiusCore
 
-// Input
+// V -> VM -> EF
+// EF -> VM -> V
+
+// Input from View
 protocol TasksListViewEventHandling {
     func viewDidLoad()
     func viewWillAppear()
     func viewWillDisappear()
     func didPressAddTaskButton()
+    var view: TaskViewing? { get set }
 }
 
-// Output
+// Input from Effect Handler
 protocol TasksListViewModeling: AnyObject {
-    func show(tasks: [Task])
+    func loadTasks()
+    func save(task: Task)
+    func showAddTaskModal()
 }
 
 final class TasksListViewModel: TasksListViewEventHandling {
-
     private let effectHandler: TasksListEffectHandler
-    private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>! //TODO: make it a let
-    private var eventConsumer: Consumer<TasksList.Event>!
+    private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>?
+    private var eventConsumer: Consumer<TasksList.Event>?
+    private let dataSource: TasksDataSource
 
     weak var view: TaskViewing?
 
     // MARK: - Init
 
-    init(effectHandler: TasksListEffectHandler = TasksListEffectHandler()) {
+    init(effectHandler: TasksListEffectHandler = TasksListEffectHandler(),
+         dataSource: TasksDataSource = TaskRemoteDataSource()) {
         self.effectHandler = effectHandler
+        self.dataSource = dataSource
         effectHandler.viewModel = self
     }
 
@@ -33,11 +41,11 @@ final class TasksListViewModel: TasksListViewEventHandling {
 
     func viewDidLoad() {
         setupMobiusController(with: TasksList.Model(tasks: [], loading: true))
-        eventConsumer(.refreshRequested)
     }
 
     func viewWillAppear() {
         startLoop()
+        eventConsumer?(.refreshRequested)
     }
 
     func viewWillDisappear() {
@@ -45,7 +53,7 @@ final class TasksListViewModel: TasksListViewEventHandling {
     }
 
     func didPressAddTaskButton() {
-        eventConsumer(.newTaskClicked)
+        eventConsumer?(.newTaskClicked)
     }
     
     // MARK: - Private
@@ -57,8 +65,8 @@ final class TasksListViewModel: TasksListViewEventHandling {
     }
 
     private func startLoop() {
-        mobiusController.connectView(AnyConnectable<TasksList.Model, TasksList.Event>(connectViews))
-        mobiusController.start()
+        mobiusController?.connectView(AnyConnectable<TasksList.Model, TasksList.Event>(connectViews))
+        mobiusController?.start()
     }
 
     private func stopLoop() {
@@ -69,8 +77,11 @@ final class TasksListViewModel: TasksListViewEventHandling {
     private func connectViews(consumer: @escaping Consumer<TasksList.Event>) -> Connection<TasksList.Model> {
         self.eventConsumer = consumer
 
-        let accept: (TasksList.Model) -> Void = { model in
-//            self.tasks = model.tasks // TODO: Remove this
+        let accept: (TasksList.Model) -> Void = { [weak self] model in
+            self?.view?.showSpinner(model.loading)
+            self?.view?.show(tasksViewData: model.tasks.map {
+                TaskViewData(title: $0.details.title, description: $0.details.description)
+            })
         }
 
         return Connection(acceptClosure: accept, disposeClosure: {
@@ -81,7 +92,8 @@ final class TasksListViewModel: TasksListViewEventHandling {
     private func update(model: TasksList.Model, event: TasksList.Event) -> Next<TasksList.Model, TasksList.Effect> {
         switch event {
         case .refreshRequested:
-            return .dispatchEffects([.loadTasks])
+            let newModel = TasksList.Model(tasks: model.tasks, loading: true)
+            return .next(newModel, effects: [.loadTasks])
         case .tasksLoaded(let tasks):
             let newModel = TasksList.Model(tasks: tasks, loading: false)
             return .next(newModel)
@@ -96,10 +108,17 @@ final class TasksListViewModel: TasksListViewEventHandling {
 }
 
 extension TasksListViewModel: TasksListViewModeling {
-    func show(tasks: [Task]) {
-        let tasksViewData = tasks.map {
-            TaskViewData(title: $0.details.title, description: $0.details.description)
+    func loadTasks() {
+        dataSource.fetchTasks { [weak self] tasks in
+            self?.eventConsumer?(.tasksLoaded(tasks: tasks))
         }
-        view?.show(tasksViewData: tasksViewData)
+    }
+
+    func showAddTaskModal() {
+        view?.showAddTaskModal()
+    }
+
+    func save(task: Task) {
+        dataSource.save(task: task)
     }
 }

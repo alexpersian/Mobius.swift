@@ -1,15 +1,15 @@
 import UIKit
 
 protocol TaskViewing: UIViewController {
-    func showAddTaskModal()
     func showSpinner(_ show: Bool)
     func show(tasksViewData: [TaskViewData])
+    func showAddTaskModal()
 }
 
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet private weak var tasksListTableView: UITableView!
-    private let viewModel: TasksListViewEventHandling
+    private var viewModel: TasksListViewEventHandling
 
     private lazy var addTaskModal: UIAlertController = {
         createNewTaskAlertController()
@@ -20,6 +20,8 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     required init?(coder: NSCoder) {
         viewModel = TasksListViewModel()
+        super.init(coder: coder)
+        viewModel.view = self
     }
 
     // MARK: - Lifecycle
@@ -29,7 +31,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         setupActivityIndicator()
         setupTableView()
         viewModel.viewDidLoad()
-        updateTaskList() // TODO: This should be an event in Mobius (.viewLoaded / .initialLoad)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,16 +58,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     // MARK: - Updates
 
-//    private func updateTaskList() {
-//        activityIndicator.startAnimating()
-//        DispatchQueue.main.async {
-//            self.dataSource.fetchTasks { [weak self] tasks in
-//                guard let self = self else { return }
-//                self.activityIndicator.stopAnimating()
-//            }
-//        }
-//    }
-
     @IBAction func addTask(sender: UIBarButtonItem) {
         viewModel.didPressAddTaskButton()
     }
@@ -74,14 +65,14 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return tasksViewData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "task-cell") as? TasksListTableViewCell else {
             fatalError("Failed to dequeue task cell")
         }
-        cell.setupCell(with: tasks[indexPath.row])
+        cell.setupCell(with: tasksViewData[indexPath.row])
         return cell
     }
 }
@@ -90,15 +81,27 @@ extension TasksViewController: TaskViewing {
 
     // MARK: - TaskViewing
 
-    func showAddTaskModal() {
+    func showSpinner(_ show: Bool) {
         DispatchQueue.main.async {
-            self.present(self.addTaskModal, animated: true, completion: nil)
+            if show {
+                self.activityIndicator.startAnimating()
+            } else {
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
 
     func show(tasksViewData: [TaskViewData]) {
-        self.tasksViewData = tasksViewData
-        tasksListTableView.reloadData()
+        DispatchQueue.main.async {
+            self.tasksViewData = tasksViewData
+            self.tasksListTableView.reloadData()
+        }
+    }
+
+    func showAddTaskModal() {
+        DispatchQueue.main.async {
+            self.present(self.addTaskModal, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Private
@@ -118,8 +121,8 @@ extension TasksViewController: TaskViewing {
 
          let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
          let doneAction = UIAlertAction(title: "Done", style: .default) { [weak self] _ in
-            self?.eventConsumer(.taskCreated(title: title, description: description))
          }
+
          doneAction.isEnabled = false
 
          NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
@@ -129,11 +132,8 @@ extension TasksViewController: TaskViewing {
          alertController.addAction(cancelAction)
          alertController.addAction(doneAction)
 
-         return alertController
-     }
+        //        self?.eventConsumer(.taskCreated(title: title, description: description))
 
-     private func createNewTask(title: String, description: String) {
-         self.dataSource.save(task: newTask)
-         self.updateTaskList()
+         return alertController
      }
 }

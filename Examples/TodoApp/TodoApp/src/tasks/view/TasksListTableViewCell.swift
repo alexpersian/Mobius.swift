@@ -14,9 +14,9 @@ class TasksListTableViewCell: UITableViewCell {
         fatalError("Initializer not implemented.")
     }
 
-    func setupCell(with task: Task) {
+    func setupCell(with taskViewData: TaskViewData) {
         self.selectionStyle = .none
-        self.textLabel?.text = task.details.title
-        self.detailTextLabel?.text = task.details.description
+        self.textLabel?.text = taskViewData.title
+        self.detailTextLabel?.text = taskViewData.description
     }
 }
