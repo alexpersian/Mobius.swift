@@ -1,7 +1,10 @@
 import Foundation
 import MobiusCore
+import UIKit
 
 final class TasksListEffectHandler: Connectable {
+
+    weak var view: (UIViewController & TaskViewing)?
 
     // MARK: - Connectable
 
@@ -18,9 +21,12 @@ final class TasksListEffectHandler: Connectable {
 
     private func routeEffect(_ effect: TasksList.Effect) {
         switch effect {
-        case .loadTasks: print("load task effect")
+        case .loadTasks:
+            //TODO: show spinner
+            print("load task effect")
         case .saveTask(let task): print("save task \(task) effect")
-        case .startTaskCreationFlow: print("start task effect") // TODO: Delegate to view (present(addTaskModal, animated: true, completion: nil))
+        case .startTaskCreationFlow:
+            view?.showAddTaskModal()
         }
     }
 }

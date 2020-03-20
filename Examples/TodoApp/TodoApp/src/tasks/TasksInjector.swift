@@ -9,7 +9,7 @@ final class MobiusControllerFactory {
 
     // MARK: - Init
 
-    init(effectHandler: TasksListEffectHandler = TasksListEffectHandler(),
+    init(effectHandler: TasksListEffectHandler,
          initialModel: TasksList.Model) {
         self.effectHandler = effectHandler
         self.initialModel = initialModel

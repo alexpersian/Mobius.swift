@@ -6,7 +6,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var tasksListTableView: UITableView!
 
     private let dataSource = TaskRemoteDataSource()
-    private var addTaskModal: UIAlertController!
+    private lazy var addTaskModal: UIAlertController = {
+        createNewTaskAlertController()
+    }()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>! //TODO: make it a let
@@ -21,7 +23,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         setupActivityIndicator()
-        setupAddTaskModal()
         setupTableView()
         setupMobiusController(with: tasks)
 
@@ -51,7 +52,10 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Setup
 
     private func setupMobiusController(with tasks: [Task]) {
-        mobiusController = MobiusControllerFactory(initialModel: TasksList.Model(tasks: tasks, loading: false))
+        let effectHandler = TasksListEffectHandler()
+        effectHandler.view = self
+        mobiusController = MobiusControllerFactory(effectHandler: effectHandler,
+                                                   initialModel: TasksList.Model(tasks: tasks, loading: false))
             .createController(with: update)
     }
 
@@ -81,42 +85,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tasksListTableView.dataSource = self
     }
 
-    private func setupAddTaskModal() {
-        let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "Title"
-        }
-        alertController.addTextField { textField in
-            textField.placeholder = "Description"
-        }
-
-        let titleField = alertController.textFields?[0]
-        let descField = alertController.textFields?[1]
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
-            self.createNewTask(title: titleField?.text ?? "", description: descField?.text ?? "")
-        }
-        doneAction.isEnabled = false
-
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
-            doneAction.isEnabled = titleField?.text?.isEmpty == false
-        }
-
-        alertController.addAction(cancelAction)
-        alertController.addAction(doneAction)
-
-        addTaskModal = alertController
-    }
-
     // MARK: - Updates
-
-    private func createNewTask(title: String, description: String) {
-        let newDetails = TaskDetails(title: title, description: description, isCompleted: false)
-        let newTask = Task(details: newDetails)
-        self.dataSource.save(task: newTask)
-        self.updateTaskList()
-    }
 
     private func updateTaskList() {
         activityIndicator.startAnimating()
@@ -134,13 +103,13 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         case .newTaskClicked:
             return .dispatchEffects([.startTaskCreationFlow])
         case .tasksLoaded(let tasks):
-            let newModel = TasksList.Model(tasks: tasks + model.tasks, loading: false)
+            let newModel = TasksList.Model(tasks: tasks, loading: false)
             return .next(newModel)
         }
     }
 
-    @IBAction func addTask(sender: UIBarButtonItem) { // Event trigger
-        self.eventConsumer(.newTaskClicked)
+    @IBAction func addTask(sender: UIBarButtonItem) {
+        eventConsumer(.newTaskClicked)
     }
 
     // MARK: - UITableViewDataSource
@@ -156,4 +125,56 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.setupCell(with: tasks[indexPath.row])
         return cell
     }
+}
+
+protocol TaskViewing {
+    func showAddTaskModal()
+}
+
+extension TasksViewController: TaskViewing {
+
+    // MARK: - TaskViewing
+
+    func showAddTaskModal() {
+        DispatchQueue.main.async {
+            self.present(self.addTaskModal, animated: true, completion: nil)
+        }
+    }
+
+    // MARK: - Private
+
+    private func createNewTaskAlertController() -> UIAlertController {
+         let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
+         alertController.addTextField { textField in
+             textField.placeholder = "Title"
+         }
+         alertController.addTextField { textField in
+             textField.placeholder = "Description"
+         }
+
+         let titleField = alertController.textFields?[0]
+         let descField = alertController.textFields?[1]
+
+         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+         let doneAction = UIAlertAction(title: "Done", style: .default) { [weak self] _ in
+             self?.createNewTask(title: titleField?.text ?? "", description: descField?.text ?? "")
+         }
+         doneAction.isEnabled = false
+
+         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
+             doneAction.isEnabled = titleField?.text?.isEmpty == false
+         }
+
+         alertController.addAction(cancelAction)
+         alertController.addAction(doneAction)
+
+         return alertController
+     }
+
+     private func createNewTask(title: String, description: String) {
+         let newDetails = TaskDetails(title: title, description: description, isCompleted: false)
+         let newTask = Task(details: newDetails)
+         self.dataSource.save(task: newTask)
+         self.updateTaskList()
+     }
 }
