@@ -10,6 +10,7 @@ protocol TasksListViewEventHandling {
     func viewWillAppear()
     func viewWillDisappear()
     func didPressAddTaskButton()
+    func didCompleteTaskCreation(title: String, description: String)
     var view: TaskViewing? { get set }
 }
 
@@ -37,7 +38,7 @@ final class TasksListViewModel: TasksListViewEventHandling {
         effectHandler.viewModel = self
     }
 
-    // MARK: - TasksListViewModeling
+    // MARK: - TasksListViewEventHandling
 
     func viewDidLoad() {
         setupMobiusController(with: TasksList.Model(tasks: [], loading: true))
@@ -54,6 +55,10 @@ final class TasksListViewModel: TasksListViewEventHandling {
 
     func didPressAddTaskButton() {
         eventConsumer?(.newTaskClicked)
+    }
+
+    func didCompleteTaskCreation(title: String, description: String) {
+        eventConsumer?(.taskCreated(title: title, description: description))
     }
     
     // MARK: - Private
@@ -106,6 +111,8 @@ final class TasksListViewModel: TasksListViewEventHandling {
         }
     }
 }
+
+// MARK: - TasksListViewModeling
 
 extension TasksListViewModel: TasksListViewModeling {
     func loadTasks() {

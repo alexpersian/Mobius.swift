@@ -9,14 +9,11 @@ protocol TaskViewing: UIViewController {
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet private weak var tasksListTableView: UITableView!
-    private var viewModel: TasksListViewEventHandling
-
-    private lazy var addTaskModal: UIAlertController = {
-        createNewTaskAlertController()
-    }()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
 
+    private var viewModel: TasksListViewEventHandling
     private var tasksViewData: [TaskViewData] = []
+    private let taskCellIdentifier = "task-cell"
 
     required init?(coder: NSCoder) {
         viewModel = TasksListViewModel()
@@ -52,7 +49,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     private func setupTableView() {
-        tasksListTableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "task-cell")
+        tasksListTableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: taskCellIdentifier)
         tasksListTableView.dataSource = self
     }
 
@@ -69,7 +66,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "task-cell") as? TasksListTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: taskCellIdentifier) as? TasksListTableViewCell else {
             fatalError("Failed to dequeue task cell")
         }
         cell.setupCell(with: tasksViewData[indexPath.row])
@@ -100,40 +97,38 @@ extension TasksViewController: TaskViewing {
 
     func showAddTaskModal() {
         DispatchQueue.main.async {
-            self.present(self.addTaskModal, animated: true, completion: nil)
+            self.presentNewTaskModel()
         }
     }
 
     // MARK: - Private
 
-    private func createNewTaskAlertController() -> UIAlertController {
-         let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
-         alertController.addTextField { textField in
-             textField.placeholder = "Title"
-         }
-         alertController.addTextField { textField in
-             textField.placeholder = "Description"
-         }
+    private func presentNewTaskModel() {
+        let alertController = UIAlertController(title: "New Task", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Title"
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "Description"
+        }
 
         let titleField = alertController.textFields?[0]
-        let title = titleField?.text ?? ""
-        let description = alertController.textFields?[1].text ?? ""
+        let descField = alertController.textFields?[1]
 
-         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-         let doneAction = UIAlertAction(title: "Done", style: .default) { [weak self] _ in
-         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let doneAction = UIAlertAction(title: "Done", style: .default) { [weak self] _ in
+            self?.viewModel.didCompleteTaskCreation(title: titleField?.text ?? "", description: descField?.text ?? "")
+        }
 
-         doneAction.isEnabled = false
+        doneAction.isEnabled = false
 
-         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
-             doneAction.isEnabled = title.isEmpty == false
-         }
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: titleField, queue: .main) { _ in
+            doneAction.isEnabled = titleField?.text?.isEmpty == false
+        }
 
-         alertController.addAction(cancelAction)
-         alertController.addAction(doneAction)
+        alertController.addAction(cancelAction)
+        alertController.addAction(doneAction)
 
-        //        self?.eventConsumer(.taskCreated(title: title, description: description))
-
-         return alertController
-     }
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
