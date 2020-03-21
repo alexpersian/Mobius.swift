@@ -9,9 +9,7 @@ final class TasksListEffectHandler: Connectable {
     func connect(_ eventConsumer: @escaping Consumer<TasksList.Event>) -> Connection<TasksList.Effect> {
         return Connection<TasksList.Effect>(
             acceptClosure: routeEffect,
-            disposeClosure: {
-                // Nothing to dispose
-            }
+            disposeClosure: { /* Nothing to dispose */ }
         )
     }
 

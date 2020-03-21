@@ -1,6 +1,7 @@
 import Foundation
 import MobiusCore
 
+// Control Flow
 // V -> VM -> EF
 // EF -> VM -> V
 
@@ -89,9 +90,8 @@ final class TasksListViewModel: TasksListViewEventHandling {
             })
         }
 
-        return Connection(acceptClosure: accept, disposeClosure: {
-            //nothing to dispose
-        })
+        return Connection(acceptClosure: accept,
+                          disposeClosure: { /* Nothing to dispose */ })
     }
 
     private func update(model: TasksList.Model, event: TasksList.Event) -> Next<TasksList.Model, TasksList.Effect> {
