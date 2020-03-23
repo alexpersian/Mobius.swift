@@ -6,11 +6,12 @@ struct TasksList {
         let loading: Bool
     }
 
-    enum Event {
+    enum Event: Equatable {
         case refreshRequested
         case tasksLoaded(tasks: [Task])
         case newTaskClicked
         case taskCreated(title: String, description: String)
+
     }
 
     enum Effect {

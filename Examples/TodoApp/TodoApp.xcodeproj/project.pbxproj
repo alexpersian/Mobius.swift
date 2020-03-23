@@ -30,6 +30,8 @@
 		86436B072425405B00921A88 /* TaskViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436B062425405B00921A88 /* TaskViewData.swift */; };
 		865BAD63242908BE009AC97F /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD62242908BE009AC97F /* TaskTests.swift */; };
 		865BAD65242909D6009AC97F /* TaskDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD64242909D6009AC97F /* TaskDetailsTests.swift */; };
+		865BAD6924290B83009AC97F /* TasksListEffectHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */; };
+		865BAD6C24290FA7009AC97F /* TaskListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */; };
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
 		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
@@ -79,6 +81,8 @@
 		86436B062425405B00921A88 /* TaskViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewData.swift; sourceTree = "<group>"; };
 		865BAD62242908BE009AC97F /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
 		865BAD64242909D6009AC97F /* TaskDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsTests.swift; sourceTree = "<group>"; };
+		865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEffectHandlerTests.swift; sourceTree = "<group>"; };
+		865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelTests.swift; sourceTree = "<group>"; };
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
 		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 		86436ADD2422629000921A88 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				865BAD6A24290F93009AC97F /* viewmodel */,
+				865BAD6624290B64009AC97F /* tasks */,
 				86436ADE2422629C00921A88 /* data */,
 			);
 			path = src;
@@ -299,6 +305,30 @@
 				86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */,
 			);
 			path = local;
+			sourceTree = "<group>";
+		};
+		865BAD6624290B64009AC97F /* tasks */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6724290B6A009AC97F /* effecthandlers */,
+			);
+			path = tasks;
+			sourceTree = "<group>";
+		};
+		865BAD6724290B6A009AC97F /* effecthandlers */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */,
+			);
+			path = effecthandlers;
+			sourceTree = "<group>";
+		};
+		865BAD6A24290F93009AC97F /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */,
+			);
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,7 +496,9 @@
 				86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */,
 				865BAD65242909D6009AC97F /* TaskDetailsTests.swift in Sources */,
 				86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */,
+				865BAD6C24290FA7009AC97F /* TaskListViewModelTests.swift in Sources */,
 				865BAD63242908BE009AC97F /* TaskTests.swift in Sources */,
+				865BAD6924290B83009AC97F /* TasksListEffectHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
