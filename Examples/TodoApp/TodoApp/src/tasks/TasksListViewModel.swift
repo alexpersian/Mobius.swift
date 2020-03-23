@@ -1,10 +1,6 @@
 import Foundation
 import MobiusCore
 
-// Control Flow
-// V -> VM -> EF
-// EF -> VM -> V
-
 // Input from View
 protocol TasksListViewEventHandling {
     func viewDidLoad()
@@ -25,7 +21,7 @@ protocol TasksListViewModeling: AnyObject {
 final class TasksListViewModel: TasksListViewEventHandling {
     private let effectHandler: TasksListEffectHandler
     private var mobiusController: MobiusController<TasksList.Model, TasksList.Event, TasksList.Effect>?
-    private var eventConsumer: Consumer<TasksList.Event>?
+    private var eventConsumer: Consumer<TasksList.Event>
     private let dataSource: TasksDataSource
 
     weak var view: TaskViewing?
@@ -33,9 +29,11 @@ final class TasksListViewModel: TasksListViewEventHandling {
     // MARK: - Init
 
     init(effectHandler: TasksListEffectHandler = TasksListEffectHandler(),
-         dataSource: TasksDataSource = TaskRemoteDataSource()) {
+         dataSource: TasksDataSource = TaskRemoteDataSource(),
+         eventConsumer: @escaping Consumer<TasksList.Event> = { _ in }) {
         self.effectHandler = effectHandler
         self.dataSource = dataSource
+        self.eventConsumer = eventConsumer
         effectHandler.viewModel = self
     }
 
@@ -47,7 +45,7 @@ final class TasksListViewModel: TasksListViewEventHandling {
 
     func viewWillAppear() {
         startLoop()
-        eventConsumer?(.refreshRequested)
+        eventConsumer(.refreshRequested)
     }
 
     func viewWillDisappear() {
@@ -55,11 +53,11 @@ final class TasksListViewModel: TasksListViewEventHandling {
     }
 
     func didPressAddTaskButton() {
-        eventConsumer?(.newTaskClicked)
+        eventConsumer(.newTaskClicked)
     }
 
     func didCompleteTaskCreation(title: String, description: String) {
-        eventConsumer?(.taskCreated(title: title, description: description))
+        eventConsumer(.taskCreated(title: title, description: description))
     }
     
     // MARK: - Private
@@ -117,7 +115,7 @@ final class TasksListViewModel: TasksListViewEventHandling {
 extension TasksListViewModel: TasksListViewModeling {
     func loadTasks() {
         dataSource.fetchTasks { [weak self] tasks in
-            self?.eventConsumer?(.tasksLoaded(tasks: tasks))
+            self?.eventConsumer(.tasksLoaded(tasks: tasks))
         }
     }
 
