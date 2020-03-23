@@ -22,6 +22,9 @@ struct Task: Equatable, Codable {
     // MARK: - Equatable
     
     static func == (lhs: Task, rhs: Task) -> Bool {
-        return lhs.id == rhs.id && lhs.details == rhs.details
+        return lhs.id == rhs.id
+            && lhs.isCompleted == rhs.isCompleted
+            && lhs.isActive == rhs.isActive
+            && lhs.details == rhs.details
     }
 }
