@@ -13,18 +13,27 @@
 		86436A9224214FB900921A88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86436A9124214FB900921A88 /* Assets.xcassets */; };
 		86436A9524214FB900921A88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86436A9324214FB900921A88 /* LaunchScreen.storyboard */; };
 		86436AAB24214FBA00921A88 /* TodoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AAA24214FBA00921A88 /* TodoAppUITests.swift */; };
-		86436ABA2421505300921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AB92421505300921A88 /* MobiusCore */; };
 		86436AD324215DC100921A88 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD224215DC100921A88 /* Task.swift */; };
 		86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD424215FFC00921A88 /* TaskDetails.swift */; };
 		86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD62421610B00921A88 /* TaskDataSource.swift */; };
 		86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */; };
 		86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */; };
 		86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AE42422640600921A88 /* DispatchQueueExecutor.swift */; };
+		86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */; };
+		86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */; };
+		86436AF92423C06400921A88 /* TasksListEffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF82423C06400921A88 /* TasksListEffectHandler.swift */; };
+		86436AFC2423C47F00921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AFB2423C47F00921A88 /* MobiusCore */; };
+		86436AFE2423C47F00921A88 /* MobiusExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86436AFD2423C47F00921A88 /* MobiusExtras */; };
+		86436B012423C4E200921A88 /* MobiusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 86436B002423C4E200921A88 /* MobiusCore */; };
+		86436B032423C4E200921A88 /* MobiusExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86436B022423C4E200921A88 /* MobiusExtras */; };
+		86436B052425113400921A88 /* TasksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436B042425113400921A88 /* TasksListViewModel.swift */; };
+		86436B072425405B00921A88 /* TaskViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436B062425405B00921A88 /* TaskViewData.swift */; };
+		865BAD6924290B83009AC97F /* TasksListEffectHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */; };
+		865BAD6C24290FA7009AC97F /* TaskListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */; };
 		F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */; };
 		F0BB42DB2421BA0500C5B40E /* TasksInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */; };
 		F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */; };
-		86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */; };
-		86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */; };
+		F0BB42EA2423E59B00C5B40E /* TasksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB42E92423E59B00C5B40E /* TasksList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,11 +72,17 @@
 		86436AD82421617F00921A88 /* TaskRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSource.swift; sourceTree = "<group>"; };
 		86436AE22422631300921A88 /* TaskRemoteDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSourceTests.swift; sourceTree = "<group>"; };
 		86436AE42422640600921A88 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
+		86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
+		86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSourceTests.swift; sourceTree = "<group>"; };
+		86436AF82423C06400921A88 /* TasksListEffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEffectHandler.swift; sourceTree = "<group>"; };
+		86436B042425113400921A88 /* TasksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListViewModel.swift; sourceTree = "<group>"; };
+		86436B062425405B00921A88 /* TaskViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewData.swift; sourceTree = "<group>"; };
+		865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListEffectHandlerTests.swift; sourceTree = "<group>"; };
+		865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelTests.swift; sourceTree = "<group>"; };
 		F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInjector.swift; sourceTree = "<group>"; };
 		F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
-		86436AF22422CB6500921A88 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
-		86436AF62422CFC500921A88 /* TaskLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSourceTests.swift; sourceTree = "<group>"; };
+		F0BB42E92423E59B00C5B40E /* TasksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +90,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86436ABA2421505300921A88 /* MobiusCore in Frameworks */,
+				86436B012423C4E200921A88 /* MobiusCore in Frameworks */,
+				86436AFE2423C47F00921A88 /* MobiusExtras in Frameworks */,
+				86436B032423C4E200921A88 /* MobiusExtras in Frameworks */,
+				86436AFC2423C47F00921A88 /* MobiusCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,45 +169,11 @@
 			children = (
 				86436A8824214FB800921A88 /* AppDelegate.swift */,
 				86436A8A24214FB800921A88 /* SceneDelegate.swift */,
-				86436ABC2421586700921A88 /* statistics */,
 				86436AC02421586700921A88 /* tasks */,
-				86436AC42421586700921A88 /* taskdetail */,
 				86436AC82421586700921A88 /* util */,
-				86436ACA2421586700921A88 /* addedittask */,
 				86436ACE2421586700921A88 /* data */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		86436ABC2421586700921A88 /* statistics */ = {
-			isa = PBXGroup;
-			children = (
-				86436ABD2421586700921A88 /* view */,
-				86436ABE2421586700921A88 /* domain */,
-				86436ABF2421586700921A88 /* effecthandlers */,
-			);
-			path = statistics;
-			sourceTree = "<group>";
-		};
-		86436ABD2421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436ABE2421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436ABF2421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = effecthandlers;
 			sourceTree = "<group>";
 		};
 		86436AC02421586700921A88 /* tasks */ = {
@@ -198,9 +182,8 @@
 				86436AC12421586700921A88 /* view */,
 				86436AC22421586700921A88 /* domain */,
 				86436AC32421586700921A88 /* effecthandlers */,
-				F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */,
-				F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */,
 				F0BB42DA2421BA0500C5B40E /* TasksInjector.swift */,
+				86436B042425113400921A88 /* TasksListViewModel.swift */,
 			);
 			path = tasks;
 			sourceTree = "<group>";
@@ -208,6 +191,9 @@
 		86436AC12421586700921A88 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB42D82421B9EA00C5B40E /* TasksViewController.swift */,
+				F0BB42E124228B5200C5B40E /* TasksListTableViewCell.swift */,
+				86436B062425405B00921A88 /* TaskViewData.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -215,6 +201,7 @@
 		86436AC22421586700921A88 /* domain */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB42E92423E59B00C5B40E /* TasksList.swift */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -222,37 +209,7 @@
 		86436AC32421586700921A88 /* effecthandlers */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = effecthandlers;
-			sourceTree = "<group>";
-		};
-		86436AC42421586700921A88 /* taskdetail */ = {
-			isa = PBXGroup;
-			children = (
-				86436AC52421586700921A88 /* view */,
-				86436AC62421586700921A88 /* domain */,
-				86436AC72421586700921A88 /* effecthandlers */,
-			);
-			path = taskdetail;
-			sourceTree = "<group>";
-		};
-		86436AC52421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436AC62421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436AC72421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
+				86436AF82423C06400921A88 /* TasksListEffectHandler.swift */,
 			);
 			path = effecthandlers;
 			sourceTree = "<group>";
@@ -260,48 +217,9 @@
 		86436AC82421586700921A88 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				86436AC92421586700921A88 /* schedulers */,
 				86436AE42422640600921A88 /* DispatchQueueExecutor.swift */,
 			);
 			path = util;
-			sourceTree = "<group>";
-		};
-		86436AC92421586700921A88 /* schedulers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = schedulers;
-			sourceTree = "<group>";
-		};
-		86436ACA2421586700921A88 /* addedittask */ = {
-			isa = PBXGroup;
-			children = (
-				86436ACB2421586700921A88 /* view */,
-				86436ACC2421586700921A88 /* domain */,
-				86436ACD2421586700921A88 /* effecthandlers */,
-			);
-			path = addedittask;
-			sourceTree = "<group>";
-		};
-		86436ACB2421586700921A88 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		86436ACC2421586700921A88 /* domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		86436ACD2421586700921A88 /* effecthandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = effecthandlers;
 			sourceTree = "<group>";
 		};
 		86436ACE2421586700921A88 /* data */ = {
@@ -335,6 +253,8 @@
 		86436ADD2422629000921A88 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				865BAD6A24290F93009AC97F /* viewmodel */,
+				865BAD6624290B64009AC97F /* tasks */,
 				86436ADE2422629C00921A88 /* data */,
 			);
 			path = src;
@@ -381,6 +301,30 @@
 			path = local;
 			sourceTree = "<group>";
 		};
+		865BAD6624290B64009AC97F /* tasks */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6724290B6A009AC97F /* effecthandlers */,
+			);
+			path = tasks;
+			sourceTree = "<group>";
+		};
+		865BAD6724290B6A009AC97F /* effecthandlers */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6824290B83009AC97F /* TasksListEffectHandlerTests.swift */,
+			);
+			path = effecthandlers;
+			sourceTree = "<group>";
+		};
+		865BAD6A24290F93009AC97F /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				865BAD6B24290FA7009AC97F /* TaskListViewModelTests.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -398,7 +342,10 @@
 			);
 			name = TodoApp;
 			packageProductDependencies = (
-				86436AB92421505300921A88 /* MobiusCore */,
+				86436AFB2423C47F00921A88 /* MobiusCore */,
+				86436AFD2423C47F00921A88 /* MobiusExtras */,
+				86436B002423C4E200921A88 /* MobiusCore */,
+				86436B022423C4E200921A88 /* MobiusExtras */,
 			);
 			productName = TodoApp;
 			productReference = 86436A8524214FB800921A88 /* TodoApp.app */;
@@ -473,7 +420,7 @@
 			);
 			mainGroup = 86436A7C24214FB800921A88;
 			packageReferences = (
-				86436AB82421505300921A88 /* XCRemoteSwiftPackageReference "." */,
+				86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */,
 			);
 			productRefGroup = 86436A8624214FB800921A88 /* Products */;
 			projectDirPath = "";
@@ -523,10 +470,14 @@
 				86436A8924214FB800921A88 /* AppDelegate.swift in Sources */,
 				86436AD92421617F00921A88 /* TaskRemoteDataSource.swift in Sources */,
 				F0BB42D92421B9EA00C5B40E /* TasksViewController.swift in Sources */,
+				86436B052425113400921A88 /* TasksListViewModel.swift in Sources */,
+				86436AF92423C06400921A88 /* TasksListEffectHandler.swift in Sources */,
 				86436AD524215FFC00921A88 /* TaskDetails.swift in Sources */,
 				86436A8B24214FB800921A88 /* SceneDelegate.swift in Sources */,
 				86436AF32422CB6500921A88 /* TaskLocalDataSource.swift in Sources */,
+				86436B072425405B00921A88 /* TaskViewData.swift in Sources */,
 				86436AE52422640600921A88 /* DispatchQueueExecutor.swift in Sources */,
+				F0BB42EA2423E59B00C5B40E /* TasksList.swift in Sources */,
 				F0BB42E224228B5200C5B40E /* TasksListTableViewCell.swift in Sources */,
 				86436AD72421610B00921A88 /* TaskDataSource.swift in Sources */,
 			);
@@ -538,6 +489,8 @@
 			files = (
 				86436AE32422631300921A88 /* TaskRemoteDataSourceTests.swift in Sources */,
 				86436AF72422CFC500921A88 /* TaskLocalDataSourceTests.swift in Sources */,
+				865BAD6C24290FA7009AC97F /* TaskListViewModelTests.swift in Sources */,
+				865BAD6924290B83009AC97F /* TasksListEffectHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,9 +807,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		86436AB82421505300921A88 /* XCRemoteSwiftPackageReference "." */ = {
+		86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "file://../../";
+			repositoryURL = "file://../..";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -865,10 +818,23 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		86436AB92421505300921A88 /* MobiusCore */ = {
+		86436AFB2423C47F00921A88 /* MobiusCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86436AB82421505300921A88 /* XCRemoteSwiftPackageReference "." */;
 			productName = MobiusCore;
+		};
+		86436AFD2423C47F00921A88 /* MobiusExtras */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MobiusExtras;
+		};
+		86436B002423C4E200921A88 /* MobiusCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */;
+			productName = MobiusCore;
+		};
+		86436B022423C4E200921A88 /* MobiusExtras */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86436AFF2423C4E200921A88 /* XCRemoteSwiftPackageReference "." */;
+			productName = MobiusExtras;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

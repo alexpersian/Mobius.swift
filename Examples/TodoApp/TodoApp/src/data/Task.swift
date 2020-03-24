@@ -1,6 +1,6 @@
 import Foundation
 
-struct Task: Equatable, Codable {
+struct Task: Codable, Equatable {
     let id: String
     var details: TaskDetails
 
@@ -17,11 +17,5 @@ struct Task: Equatable, Codable {
         self.details = details
         isCompleted = false
         isActive = false
-    }
-
-    // MARK: - Equatable
-    
-    static func == (lhs: Task, rhs: Task) -> Bool {
-        return lhs.id == rhs.id && lhs.details == rhs.details
     }
 }
