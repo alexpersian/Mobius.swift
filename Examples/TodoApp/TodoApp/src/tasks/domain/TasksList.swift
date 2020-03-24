@@ -11,7 +11,6 @@ struct TasksList {
         case tasksLoaded(tasks: [Task])
         case newTaskClicked
         case taskCreated(title: String, description: String)
-
     }
 
     enum Effect {
