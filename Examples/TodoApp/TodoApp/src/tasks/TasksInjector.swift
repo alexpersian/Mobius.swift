@@ -1,7 +1,7 @@
 import MobiusCore
 import MobiusExtras
 
-final class MobiusControllerFactory {
+struct MobiusControllerFactory {
 
     private let effectHandler: TasksListEffectHandler
     private let initialModel: TasksList.Model
